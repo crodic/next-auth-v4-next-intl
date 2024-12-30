@@ -1,0 +1,10 @@
+{
+    "HomePage": {
+        "title": "Xin chào thế giới!",
+        "about": "Vào trang giới thiệu",
+        "sign_in": "Đăng nhập"
+    },
+    "AdminPage": {
+        "title": "Trang quản trị"
+    }
+}
