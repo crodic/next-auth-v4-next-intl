@@ -30,44 +30,44 @@ const LoginForm = () => {
 
     const onSubmit = async (data: LoginSchema) => {
         setErrorMessage(null);
-        try {
-            if (data.code && data.code === '123456') {
-                const authLogin = await signIn('credentials', { ...data, redirect: false });
-                if (authLogin?.error) {
-                    setErrorMessage(authLogin.error);
-                } else {
-                    router.push('/profile');
-                }
-            } else if (data.code && data.code !== '123456') {
-                setErrorMessage('Invalid code');
-            } else {
-                const authLogin = await login(data);
-                const isEnabled2fa = true;
-                if (!isEnabled2fa) {
-                    const nextAuthLogin = await signIn('credentials', { ...data, redirect: false });
-                    if (nextAuthLogin?.error) {
-                        setErrorMessage(nextAuthLogin.error);
-                    } else {
-                        router.push('/profile');
-                    }
-                } else {
-                    setIsShow2fa(true);
-                }
-            }
-        } catch (error: any) {
-            setErrorMessage(error.message);
-        }
-
-        // const login = await signIn('credentials', { ...data, redirect: false });
-        // if (login?.error) {
-        //     if (login.error === 'AccessDenied') {
-        //         router.push('/auth/2fa');
+        // try {
+        //     if (data.code && data.code === '123456') {
+        //         const authLogin = await signIn('credentials', { ...data, redirect: false });
+        //         if (authLogin?.error) {
+        //             setErrorMessage(authLogin.error);
+        //         } else {
+        //             router.push('/profile');
+        //         }
+        //     } else if (data.code && data.code !== '123456') {
+        //         setErrorMessage('Invalid code');
         //     } else {
-        //         setErrorMessage(login.error);
+        //         const authLogin = await login(data);
+        //         const isEnabled2fa = true;
+        //         if (!isEnabled2fa) {
+        //             const nextAuthLogin = await signIn('credentials', { ...data, redirect: false });
+        //             if (nextAuthLogin?.error) {
+        //                 setErrorMessage(nextAuthLogin.error);
+        //             } else {
+        //                 router.push('/profile');
+        //             }
+        //         } else {
+        //             setIsShow2fa(true);
+        //         }
         //     }
-        // } else {
-        //     router.push('/profile');
+        // } catch (error: any) {
+        //     setErrorMessage(error.message);
         // }
+
+        const login = await signIn('credentials', { ...data, redirect: false });
+        if (login?.error) {
+            if (login.error === 'AccessDenied') {
+                router.push('/auth/2fa');
+            } else {
+                setErrorMessage(login.error);
+            }
+        } else {
+            router.push('/profile');
+        }
     };
 
     const handleGithubLogin = async () => {
