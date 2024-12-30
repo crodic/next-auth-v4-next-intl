@@ -41,6 +41,7 @@ export const authOptions: NextAuthOptions = {
                 if (!username || !password) {
                     throw new Error('Email or Password is required');
                 }
+
                 const res = await loginUser({ username, password });
 
                 const user: User = {
@@ -132,7 +133,8 @@ export const authOptions: NextAuthOptions = {
             return Promise.resolve(session);
         },
         signIn: async (params) => {
-            console.log(params);
+            const { account } = params;
+            if (account?.provider !== 'credentials') return true;
             return true;
         },
     },

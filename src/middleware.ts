@@ -8,7 +8,7 @@ import { getToken } from 'next-auth/jwt';
 const locales = ['en', 'vi'];
 
 const publicPages = ['/'];
-const authPages = ['/auth/login'];
+const authPages = ['/auth/login', '/auth/2fa'];
 const roleBasedPages = ['/admin'];
 
 const intlMiddleware = createIntlMiddleware({
